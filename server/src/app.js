@@ -24,4 +24,12 @@ app.get(/^\/(?!v1).*/, (req, res) => {
   res.sendFile(path.join(__dirname, "..", "public", "index.html"));
 });
 
+app.use((err, req, res, next) => {
+  console.error(err);
+
+  res.status(500).json({
+    error: err.message || "Internal Server Error",
+  });
+});
+
 module.exports = app;
