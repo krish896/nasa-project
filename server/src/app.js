@@ -17,19 +17,19 @@ app.use(
 app.use(morgan("combined"));
 
 app.use(express.json());
-app.use("/v1", api);
 app.use(express.static(path.join(__dirname, "..", "public")));
+app.use("/v1", api);
 
 app.get(/^\/(?!v1).*/, (req, res) => {
   res.sendFile(path.join(__dirname, "..", "public", "index.html"));
 });
 
-app.use((err, req, res, next) => {
-  console.error(err);
+// app.use((err, req, res, next) => {
+//   console.error(err);
 
-  res.status(500).json({
-    error: err.message || "Internal Server Error",
-  });
-});
+//   res.status(500).json({
+//     error: err.message || "Internal Server Error",
+//   });
+// });
 
 module.exports = app;
