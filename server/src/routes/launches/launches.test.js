@@ -6,6 +6,7 @@ describe("Launches API", () => {
   // runs once before all tests in this block
   beforeAll(async () => {
     await mongoConnect();
+    await loadPlanetsData();
   });
 
   // runs once after all tests in this block
