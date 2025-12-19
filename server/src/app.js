@@ -20,7 +20,7 @@ app.use(express.json());
 app.use("/v1", api);
 app.use(express.static(path.join(__dirname, "..", "public")));
 
-app.get(/.*/, (req, res) => {
+app.get(/^\/(?!v1).*/, (req, res) => {
   res.sendFile(path.join(__dirname, "..", "public", "index.html"));
 });
 
