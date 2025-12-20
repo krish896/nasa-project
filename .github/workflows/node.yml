@@ -28,4 +28,5 @@ jobs:
       - run: npm install --prefix client --include=dev
       - run: npm run build --prefix client
       - run: npm install --prefix server --include=dev
-      - run: npm test
+      - run: npm test --prefix server
+      - run: npm test --prefix client -- --passWithNoTests
