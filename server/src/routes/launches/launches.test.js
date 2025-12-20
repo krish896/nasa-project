@@ -13,9 +13,9 @@ describe("Launches API", () => {
   });
 
   // runs once after all tests in this block
-  // afterAll(async () => {
-  //   await mongoDisconnect();
-  // });
+  afterAll(async () => {
+    await mongoDisconnect();
+  });
 
   describe("Test GET /launches", () => {
     test("It should respond with 200 success", async () => {
