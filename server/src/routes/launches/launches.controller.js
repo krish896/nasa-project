@@ -35,9 +35,6 @@ async function httpaddNewLaunch(req, res) {
     });
   }
 
-  // ✅ REQUIRED: server-owned field
-  launch.customers = ["ZTM", "NASA"];
-
   await scheduleNewLaunch(launch);
   return res.status(201).json(launch);
 }
