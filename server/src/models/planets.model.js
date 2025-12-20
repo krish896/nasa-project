@@ -17,30 +17,33 @@ function isHabitablePlanet(planet) {
 }
 
 async function loadPlanetsData() {
-  // return new Promise((resolve, reject) => {
-  fs.createReadStream("kepler.csv")
-    .pipe(
-      parse({
-        comment: "#",
-        columns: true,
+  return new Promise((resolve, reject) => {
+    fs.createReadStream("kepler.csv")
+      .pipe(
+        parse({
+          comment: "#",
+          columns: true,
+        })
+      )
+      .on("data", async (data) => {
+        if (isHabitablePlanet(data)) {
+          await savePlanet(data); // ✅ await
+        }
       })
-    )
-    .on("data", async (data) => {
-      if (isHabitablePlanet(data)) {
-        // habitablePlanets.push(data);
-        savePlanet(data);
-      }
-    })
-    .on("error", (err) => {
-      console.log(err);
-      reject(err);
-    })
-    .on("end", async () => {
-      const planetCount = (await getAllPlanets()).length;
-      console.log(`${planetCount} habitable planets were found `);
-      resolve();
-    });
-  // });
+      .on("error", (err) => {
+        console.error(err);
+        reject(err);
+      })
+      .on("end", async () => {
+        const planetCount = (await getAllPlanets()).length;
+
+        if (process.env.NODE_ENV !== "test") {
+          console.log(`${planetCount} habitable planets were found`);
+        }
+
+        resolve(); // ✅ now real
+      });
+  });
 }
 
 async function getAllPlanets() {

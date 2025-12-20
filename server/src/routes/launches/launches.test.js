@@ -1,3 +1,5 @@
+process.env.NODE_ENV = "test";
+
 const request = require("supertest");
 const app = require("../../app");
 const { mongoConnect, mongoDisconnect } = require("../../services/mongo");
@@ -11,9 +13,9 @@ describe("Launches API", () => {
   });
 
   // runs once after all tests in this block
-  afterAll(async () => {
-    await mongoDisconnect();
-  });
+  // afterAll(async () => {
+  //   await mongoDisconnect();
+  // });
 
   describe("Test GET /launches", () => {
     test("It should respond with 200 success", async () => {
